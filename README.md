@@ -6,7 +6,7 @@ Prerequisites
 =============
 - [ ] RAM ≥ 4Gb
 - [ ] Права локального админа для аккаунта участника 
-- [ ] Доступен git repo с данным руководством {{ git-repo }} `https://github.com/eugene-krivosheyev/docker`
+- [ ] Доступен git repo с данным руководством {{ git-repo }} `https://github.com/sasha-matveev/docker`
 - [ ] Доступен {{ registry-host }} `https://hub.docker.com` (Docker Hub)
 - [ ] Зарегистрирована учетная запись {{ registry-account }} на {{ registry-host }}
 - [ ] Установлен Docker CE или совместимый менеджер контейнеров (e.g. Podman)
@@ -106,30 +106,32 @@ Hands-on practice quest #00: prerequisites sound-check (15+5)
 ``` 
 
 - [ ] When участники *именуют сценарии*, выполняют команды и анализируют их вывод и поведение
-- Сценарий "Как ...?"
+- Сценарий "Как to know docker version and underlying system info/ monitor docker events(?) ?"
 ```shell
 docker version # TODO: собственные пометки участников для будущего использования в проектах
 docker system info
-docker system df
+docker system df # all containers/images
 
 docker events
 ```
 
-- Сценарий "Как ...?"
+- Сценарий "How lot login my docker to docker-hub/registry?"
 (в новом ssh shell, чтобы параллельно видеть вывод `docker events`)
 ```shell
 docker logout
 open https://hub.docker.com/settings/security # to make Access Token
-docker login -u {{ registry-account }} -p {{ access-token }} # login default hub.docker.com registry
+docker login -u sashamatveev -p 246cbe12-c7ed-4fee-b60b-aeb7237032b3 # login default hub.docker.com registry
+
+# no events in docker events terminal!
 ```
 
-- Сценарий "Как ...?"
+- Сценарий "Как download alpine image and check it was downloaded?"
 ```shell
 docker image pull alpine
 docker system df
 ````
 
-- Сценарий "Как ...?"
+- Сценарий "Как check alive [existing] containers and start one?"
 ```shell
 docker container ls [--all]
 docker container run --name demo -it alpine
@@ -137,7 +139,7 @@ docker container run --name demo -it alpine
 /# exit 
 ```
 
-- Сценарий "Как ...?"
+- Сценарий "Как remove a container?"
 ```shell
 docker container ls [--all]
 docker container rm [--force] demo
@@ -146,12 +148,12 @@ docker container rm [--force] demo
 - [ ] Then участники делятся проблемами и отвечают на вопросы
 - Как проименовали сценарии?
 - Успешна ли сконфигурирована система для использования docker?
-- Какая версия API?
-- Откуда взялся образ диска?
-- Сколько места занимает образ?
-- Сколько места занимает контейнер?
-- Какая версия образа скачивается по умолчанию?
-- Какая гостевая команда запускается при запуске контейнера?
+- Какая версия API?  1.41
+- Откуда взялся образ диска? docker registry / hub
+- Сколько места занимает образ? 5.6mb
+- Сколько места занимает контейнер? 38b
+- Какая версия образа скачивается по умолчанию? latest?
+- Какая гостевая команда запускается при запуске контейнера? "/bin/sh" # how it knows what to start? image?
 
 Жизненный цикл готового образа (40)
 ------------------------------
