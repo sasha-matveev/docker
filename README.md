@@ -131,7 +131,7 @@ docker image pull alpine
 docker system df
 ````
 
-- Сценарий "Как check alive [existing] containers and start one?"
+- Сценарий "Как check alive [existing] containers and start command in new container?"
 ```shell
 docker container ls [--all]
 docker container run --name demo -it alpine
