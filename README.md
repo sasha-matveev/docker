@@ -8,7 +8,7 @@ Prerequisites
 - [ ] Права локального админа для аккаунта участника 
 - [ ] Доступен git repo с данным руководством {{ git-repo }} `https://github.com/sasha-matveev/docker`
 - [ ] Доступен {{ registry-host }} `https://hub.docker.com` (Docker Hub)
-- [ ] Зарегистрирована учетная запись {{ registry-account }} на {{ registry-host }}
+- [ ] Зарегистрирована учетная запись {{ registry-account }} на {{ registry-host }} // sashamatveev
 - [ ] Установлен Docker CE или совместимый менеджер контейнеров (e.g. Podman)
 ```shell
 sudo dnf install -y docker
@@ -243,9 +243,9 @@ Hands-on practice quest #01: pre-built disk image lifecycle (15+5)
 - [ ] Given пары участников
 
 - [ ] When участники именуют сценарии, выполняют команды и анализируют их вывод и поведение
-- Сценарий "Как ...?"
+- Сценарий "View all existing images?"
 ```shell
-docker image ls # TODO: собственные пометки участников для будущего использования в проектах
+docker image ls
 ```
 
 - Сценарий "Как ...?"
@@ -268,19 +268,19 @@ docker container run --name demo -it alpine
 /# touch side-effect.txt
 /# exit
 docker container diff demo
-docker container commit demo {{ registry-account }}/demo
+docker container commit demo sashamatveev/demo
 docker image ls
 ```
 
 - Сценарий "Как ...?"
 ```shell
-docker image tag {{ registry-account }}/demo:latest {{ registry-account }}/demo:1.0.0
+docker image tag sashamatveev/demo:latest sashamatveev/demo:1.0.0
 docker image ls
 ```
 
 - Сценарий "Как ...?"
 ```shell
-docker image push {{ registry-account }}/demo:1.0.0
+docker image push sashamatveev/demo:1.0.0
 ```
 
 - Сценарий "Как ...?"
@@ -289,9 +289,9 @@ docker image ls
 docker container rm demo
 docker image prune
 docker image ls
-docker image rm {{ registry-account }}/demo:1.0.0
+docker image rm sashamatveev/demo:1.0.0
 docker image ls
-docker image rm {{ registry-account }}/demo:latest
+docker image rm sashamatveev/demo:latest
 docker image ls
 docker image prune --all
 ```
