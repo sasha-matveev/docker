@@ -299,13 +299,13 @@ docker image prune --all
 
 - [ ] Then участники делятся проблемами и отвечают на вопросы
 - Как проименовали сценарии?
-- Какие способы идентификации образа?
-- Какой тег у образа по умолчанию при создании коммитом?
-- Какой тег у образа по умолчанию при операции `pull`?
-- В чем физический смысл удаления образа командой `rm`?
-- Всегда ли удаляется образ по команде `rm`?
-- Что делает prune?
-- Что такое [_dangling_](https://docs.docker.com/config/pruning/#prune-images) image?
+- Какие способы идентификации образа? name+tag / id
+- Какой тег у образа по умолчанию при создании коммитом? latest
+- Какой тег у образа по умолчанию при операции `pull`? latest
+- В чем физический смысл удаления образа командой `rm`? remove image from local images
+- Всегда ли удаляется образ по команде `rm`? only when there are no container based on this image
+- Что делает prune? remove all _dangling_ images
+- Что такое [_dangling_](https://docs.docker.com/config/pruning/#prune-images) image? image that deleted image was based onto
 
 Жизненный цикл контейнера (20)
 -------------------------
