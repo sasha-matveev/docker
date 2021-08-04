@@ -248,13 +248,13 @@ Hands-on practice quest #01: pre-built disk image lifecycle (15+5)
 docker image ls
 ```
 
-- Сценарий "Как ...?"
+- Сценарий "pull new image fro repo"
 ```shell
 docker image pull alpine
 docker image ls
 ```
 
-- Сценарий "Как ...?"
+- Сценарий "View history of changes of specified image? / inspect image , can be formated"
 ```shell
 docker image history alpine
 
@@ -262,7 +262,7 @@ docker image inspect alpine
 docker image inspect --format='{{.Id}} -> {{.Parent}}' alpine
 ```
 
-- Сценарий "Как ...?"
+- Сценарий "start container in interactive mode, change it and commit to a new image"
 ```shell
 docker container run --name demo -it alpine
 /# touch side-effect.txt
@@ -272,18 +272,19 @@ docker container commit demo sashamatveev/demo
 docker image ls
 ```
 
-- Сценарий "Как ...?"
+- Сценарий "create version tag on an image"
 ```shell
 docker image tag sashamatveev/demo:latest sashamatveev/demo:1.0.0
 docker image ls
 ```
 
-- Сценарий "Как ...?"
+- Сценарий "push tagged image to repository"
 ```shell
 docker image push sashamatveev/demo:1.0.0
 ```
 
-- Сценарий "Как ...?"
+- Сценарий "remove an image"
+- Сценарий "remove a container and all images required for this container"
 ```shell
 docker image ls
 docker container rm demo
