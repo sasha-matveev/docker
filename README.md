@@ -120,7 +120,7 @@ docker events
 ```shell
 docker logout
 open https://hub.docker.com/settings/security # to make Access Token
-docker login -u sashamatveev -p 246cbe12-c7ed-4fee-b60b-aeb7237032b3 # login default hub.docker.com registry
+docker login -u sashamatveev -p 867319cd-788c-4dee-985b-51dcb3861a3d # login default hub.docker.com registry
 
 # no events in docker events terminal!
 ```
