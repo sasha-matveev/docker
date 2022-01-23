@@ -304,7 +304,7 @@ docker image prune --all
 - Какой тег у образа по умолчанию при операции `pull`? latest
 - В чем физический смысл удаления образа командой `rm`? remove image from local images
 - Всегда ли удаляется образ по команде `rm`? only when there are no container based on this image
-- Что делает prune? remove all _dangling_ images
+- Что делает prune? remove all _dangling_ images; --all - all images without containers !
 - Что такое [_dangling_](https://docs.docker.com/config/pruning/#prune-images) image? image that deleted image was based onto
 
 Жизненный цикл контейнера (20)
@@ -365,23 +365,25 @@ docker container ls
 
 - Сценарий "Как запустить контейнер в фоновом режиме?"
 ```shell
-docker container run --detach --name proxy --publish 80:80 nginx:1.19.4 # note `--detach`
+# publish host_port:container_port
+# publish localhost:8080:80
+docker container run --detach --name proxy --publish 90:80 nginx:1.19.4 # note `--detach`
 docker container ls
-curl localhost:80
+curl localhost:90
 ```
 
 - Сценарий "Как 'подключиться' к работающему контейнеру?"
 ```shell
-docker container logs
-docker container attach --sig-proxy=false # otherwise detach key `ctrl-c` will stop container 
-docker container top
-docker container exec -it /bin/sh
+docker container logs proxy
+docker container attach --sig-proxy=false proxy # otherwise detach key `ctrl-c` will stop container 
+docker container top proxy
+docker container exec -it proxy /bin/sh
 ```
 
 - Сценарий "Как посмотреть свойства контейнера?"
 ```shell
-docker container port
-docker container inspect [| jq]
+docker container port proxy
+docker container inspect proxy [| jq]
 ```
 
 - Сценарий "Как поставить на паузу контейнер?"
@@ -415,7 +417,7 @@ docker container rm --force
 
 - Сценарий "Как удалить остановленный контейнер?"
 ```shell
-docker container rm
+docker container rm proxy
 docker container prune
 ```
 
@@ -545,8 +547,8 @@ cat backend/Dockerfile # check it for reference of new base/Dockerfile
 mkdir base
 nano base/Dockerfile #TODO describe image that based on CentOS fixed fresh available version and install java-1.8.0-openjdk-headless with `yum install -y`
 
-docker image build --tag {{ registry-account }}/base:1.0.0 ./base # where Dockerfile located
-docker image push {{ registry-account }}/base:1.0.0
+docker image build --tag sashamatveev/base:1.0.0 ./base # where Dockerfile located
+docker image push sashamatveev/base:1.0.0
 ```
 
 Hands-on practice quest #03-2: _simple_ application containerization (15+5)
@@ -572,7 +574,7 @@ cat Dockerfile # check out application's default configuration
 - Сценарий "Как собрать свой образ с приложением на базе Dockerfile?"
 ```shell
 cd application
-docker image build --tag {{ registry-account }}/backend:1.0.0 ./backend
+docker image build --tag sashamatveev/backend:1.0.0 ./backend
 ```
 
 - Сценарий "Как сохранить образ в репозитории?"
@@ -593,8 +595,8 @@ docker container run \
  {{ registry-account }}/backend:1.0.0 \ #  репозиторий и тег
  --spring.profiles.active=qa # параметры командной строки
 
-curl localhost:8080/dbo/actuator/health
-curl -X POST localhost:8080/dbo/actuator/shutdown
+curl http://localhost:8080/dbo/actuator/health
+curl -X POST http://localhost:8080/dbo/actuator/shutdown
 
 docker container ls --all 
 ```
