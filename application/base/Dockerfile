@@ -1,3 +1,4 @@
-# sashamatveev/base:1.0.0
-FROM centos:centos8
-RUN yum install -y java-1.8.0-openjdk-headless
+# sashamatveev/base:2.0.0
+FROM alpine:3.15.0
+RUN apk update
+RUN apk add openjdk11-jre-headless
