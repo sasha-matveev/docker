@@ -563,6 +563,10 @@ nano base/Dockerfile
 # - update package manager cache with `apk update`
 # - install package `openjdk11-jre-headless` with `apk add`
 
+FROM alpine:3.15.0
+RUN apk update
+RUN apk add openjdk11-jre-headless
+
 docker image build --tag sashamatveev/base:2.0.0 ./base
 ```
 
@@ -604,9 +608,7 @@ nano backend/Dockerfile # TODO fix FROM directive to new base image
 
 - Сценарий "Как собрать свой образ с приложением на базе Dockerfile?"
 ```shell
-docker image build \
- --tag {{ registry-account }}/backend:1.0.0 \ # -t
- ./backend
+docker image build -t sashamatveev/backend:1.0.0 ./backend
 ```
 
 - Сценарий "Как опубликовать образ в репозитории?"
@@ -619,11 +621,11 @@ docker image push ...
 docker container run \
  --name backend \
  --rm \ # одноразовый: удалится после остановки
- --detach \ # -d
+ --detach \ # -d or -it - interractive
  --publish 8080:8080 \ # -p [host address:]8080:8080
  --env SPRING_PROFILES_ACTIVE=qa \ # -e: в контейнере действует переменная окружения
  --volume $(pwd)/log:/dbo/log \ # -v: папка в конейнере /dbo/log отображена на папку на хосте /current-path/log. Windows caution for $()!
- {{ registry-account }}/backend:1.0.0 \ #  репозиторий и тег
+ sashamatveev/backend:1.0.0 \ #  репозиторий и тег
  --spring.profiles.active=qa # параметры командной строки
 ```
 
@@ -649,10 +651,16 @@ docker container stop
 - В каком порядке выполнялись директивы Dockerfile?
 - Сколько новых layers добавила сборка к базовому образу?
 - Когда и по какой причине остановился контейнер?
+когда джава закрылась
 - Что происходит с процессом приложения, когда останавливаем контейнер?
+просто пропал
 - Сколько раз вы столкнулись с настройкой экстернализированной конфигурации приложения?
+2
 - Какие приоритеты у этих точек конфигурации?
+dockerfile
+start comand line
 - Что случится при запуске контейнера с параметром командной строки `docker run ... --spring.profiles.active=preprod` ?
+
 
 Введение в контейнеризацию составного приложения (15)
 ------------------------------------------------
