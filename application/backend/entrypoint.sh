@@ -1,2 +1,2 @@
-# docker run .... --env my_env=qa
-java -Dspring.profiles.active=$my_env -jar dbo-1.0-SNAPSHOT.jar
+# docker run .... --env spring_profile=qa
+java -Dspring.profiles.active=$spring_profile -jar dbo-1.0-SNAPSHOT.jar

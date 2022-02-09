@@ -13,29 +13,28 @@ services:
       POSTGRES_PASSWORD: dbo
 
   stub:
-    image: {{ registry-account }}/stub:1.0.0
+    image: sashamatveev/stub:1.0
     networks:
       - deployment
 
   backend:
-    image: {{ registry-account }}/backend:1.0.0
-    command: --spring.profiles.active=preprod
+    image: sashamatveev/backend:2.2
+#    command: --spring.profiles.active=preprod
     networks:
       deployment:
     environment:
-      SPRING_PROFILES_ACTIVE: preprod
+#      SPRING_PROFILES_ACTIVE: preprod
       SPRING_DATASOURCE_URL: "jdbc:postgresql://db/dbo-db"
       SPRING_DATASOURCE_USERNAME: dbo
       SPRING_DATASOURCE_PASSWORD: dbo
       SPRING_INTEGRATION_LEGACYACCOUNTINGSYSTEM_BASEURL: "http://stub:8888/api"
 
   proxy:
-    image: {{ registry-account }}/proxy:1.0.0
+    image: sashamatveev/proxy:1.0
     ports:
       - "80:80"
     networks:
       - deployment
-
 
 volumes:
   db:

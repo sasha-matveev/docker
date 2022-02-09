@@ -885,7 +885,12 @@ docker network inspect
 - Сценарий "Как удалить виртуальную сеть?"
 ```shell
 docker network rm
+
+удаляет сеть 
+
 docker network prune
+
+удаляет все что не используется
 ```
 
 - Сценарий "Как управлять виртуальными сетями в docker-compose?"
